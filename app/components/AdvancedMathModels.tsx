@@ -1,9 +1,11 @@
+
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, BarChart3, Waves, Fish, Zap, Clock, TrendingUp, Brain } from 'lucide-react';
-import { apiService } from '../services/api';
+import { apiService, AdvancedPredictionResponse } from '../services/api';
 
 interface TrophicData {
   phytoplankton: number[];
@@ -13,29 +15,9 @@ interface TrophicData {
   time_days: number[];
 }
 
-interface AdvancedPrediction {
-  components: {
-    [key: string]: {
-      data: number[][];
-      shape: [number, number];
-      statistics: {
-        min: number;
-        max: number;
-        mean: number;
-        std: number;
-      };
-    };
-  };
-  metadata: {
-    trophic_modeling: string;
-    uncertainty_quantification: string;
-    spatial_resolution: [number, number];
-  };
-}
-
 export default function AdvancedMathModels() {
   const [trophicData, setTrophicData] = useState<TrophicData | null>(null);
-  const [advancedPrediction, setAdvancedPrediction] = useState<AdvancedPrediction | null>(null);
+  const [advancedPrediction, setAdvancedPrediction] = useState<AdvancedPredictionResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [activeModel, setActiveModel] = useState<'trophic' | 'advanced' | 'uncertainty'>('trophic');
 
@@ -209,7 +191,7 @@ export default function AdvancedMathModels() {
   const renderAdvancedPrediction = () => {
     if (!advancedPrediction) return null;
 
-    const components = Object.entries(advancedPrediction.components);
+    const components = Object.entries(advancedPrediction.components || {});
 
     return (
       <div className="space-y-6">
@@ -237,23 +219,23 @@ export default function AdvancedMathModels() {
                   {key.replace(/_/g, ' ')}
                 </h4>
                 <div className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                  {data.shape[0]}×{data.shape[1]}
+                  {data.shape?.[0] || 0}×{data.shape?.[1] || 0}
                 </div>
               </div>
               
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Mean:</span>
-                  <span className="font-medium">{data.statistics.mean.toFixed(3)}</span>
+                  <span className="font-medium">{data.statistics?.mean?.toFixed(3) || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Std Dev:</span>
-                  <span className="font-medium">{data.statistics.std.toFixed(3)}</span>
+                  <span className="font-medium">{data.statistics?.std?.toFixed(3) || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Range:</span>
                   <span className="font-medium">
-                    {data.statistics.min.toFixed(2)} - {data.statistics.max.toFixed(2)}
+                    {data.statistics?.min?.toFixed(2) || 'N/A'} - {data.statistics?.max?.toFixed(2) || 'N/A'}
                   </span>
                 </div>
               </div>
@@ -301,7 +283,7 @@ export default function AdvancedMathModels() {
             <div className="bg-white rounded-lg p-3 border border-green-100">
               <div className="text-gray-600">Peak Habitat Suitability</div>
               <div className="text-2xl font-bold text-green-600">
-                {advancedPrediction.metadata.peak_habitat_suitability || '0.700'}
+                {advancedPrediction.metadata?.peak_habitat_suitability || '0.700'}
               </div>
             </div>
             <div className="bg-white rounded-lg p-3 border border-blue-100">
@@ -311,7 +293,7 @@ export default function AdvancedMathModels() {
             <div className="bg-white rounded-lg p-3 border border-purple-100">
               <div className="text-gray-600">High Confidence Areas</div>
               <div className="text-2xl font-bold text-purple-600">
-                {advancedPrediction.metadata.high_confidence_areas || '24.2%'}
+                {advancedPrediction.metadata?.high_confidence_areas || '24.2%'}
               </div>
             </div>
             <div className="bg-white rounded-lg p-3 border border-orange-100">
@@ -328,13 +310,13 @@ export default function AdvancedMathModels() {
               <div>
                 <span className="text-gray-600">Trophic Modeling:</span>
                 <span className="ml-2 font-medium text-green-600">
-                  ✅ {advancedPrediction.metadata.trophic_modeling}
+                  ✅ {advancedPrediction.metadata?.trophic_modeling || 'Enabled'}
                 </span>
               </div>
               <div>
                 <span className="text-gray-600">Uncertainty Analysis:</span>
                 <span className="ml-2 font-medium text-blue-600">
-                  ✅ {advancedPrediction.metadata.uncertainty_quantification}
+                  ✅ {advancedPrediction.metadata?.uncertainty_quantification || 'Enabled'}
                 </span>
               </div>
             </div>

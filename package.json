@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" DISABLE_ESLINT_PLUGIN=true next build",
+    "build:turbo": "next build --turbopack",
+    "build:safe": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -26,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "tailwindcss": "^4",

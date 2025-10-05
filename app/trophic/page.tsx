@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, Activity } from 'lucide-react';
 import Link from 'next/link';
-import TrophicCascade from '../components/TrophicCascade';
+// import TrophicCascade from '../components/TrophicCascade';
 import AdvancedMathModels from '../components/AdvancedMathModels';
 import SharkIcon from '../components/SharkIcon';
 import { Toaster } from 'react-hot-toast';
@@ -124,7 +124,7 @@ export default function TrophicPage() {
               🛰️ Satellite Connection
             </h3>
             <p className="text-blue-700 leading-relaxed">
-              NASA's PACE satellite can detect changes in ocean color that indicate 
+              NASA&apos;s PACE satellite can detect changes in ocean color that indicate 
               phytoplankton abundance. By understanding trophic cascade delays, 
               scientists can predict how these changes will affect shark populations 
               weeks in advance, enabling better conservation strategies.

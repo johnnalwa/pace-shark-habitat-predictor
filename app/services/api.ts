@@ -94,6 +94,36 @@ export interface SharkTagSimulation {
   educational_note: string;
 }
 
+export interface TrophicTimeSeriesResponse {
+  trophic_cascade?: {
+    phytoplankton: number[];
+    zooplankton: number[];
+    small_fish: number[];
+    sharks: number[];
+    time_days: number[];
+  };
+  [key: string]: any;
+}
+
+export interface AdvancedPredictionResponse {
+  components?: {
+    [key: string]: {
+      data?: any;
+      statistics?: {
+        min: number;
+        max: number;
+        mean: number;
+        std: number;
+      };
+      shape?: [number, number];
+    };
+  };
+  metadata?: {
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
+
 export interface EducationalContent {
   title: string;
   sections: Array<{
@@ -106,11 +136,11 @@ export interface EducationalContent {
 
 export const apiService = {
   // Health check
-  async healthCheck(): Promise<any> {
+  async healthCheck(): Promise<{ status: string; message: string }> {
     try {
       const response = await api.get('/api/health');
       return response.data;
-    } catch (error) {
+    } catch {
       return { status: 'demo_mode', message: 'Using fallback data for demonstration' };
     }
   },
@@ -120,7 +150,7 @@ export const apiService = {
     try {
       const response = await api.get('/api/dataset/info');
       return response.data;
-    } catch (error) {
+    } catch {
       return {
         data_source: 'PACE OCI L2 (Demo Mode)',
         date: '2024-10-04',
@@ -133,13 +163,13 @@ export const apiService = {
   },
 
   // Trophic time series data - only from real analysis
-  async getTrophicTimeSeries(): Promise<any> {
+  async getTrophicTimeSeries(): Promise<TrophicTimeSeriesResponse> {
     const response = await api.get('/api/trophic/timeseries');
     return response.data;
   },
 
   // Advanced prediction - only from real analysis
-  async getAdvancedPrediction(): Promise<any> {
+  async getAdvancedPrediction(): Promise<AdvancedPredictionResponse> {
     const response = await api.post('/api/prediction/advanced');
     return response.data;
   },
@@ -156,7 +186,7 @@ export const apiService = {
   },
 
   // Get list of your analysis outputs - only real data
-  async getAnalysisOutputs(): Promise<any> {
+  async getAnalysisOutputs(): Promise<unknown> {
     const response = await api.get('/api/analysis/outputs');
     return response.data;
   },
@@ -166,7 +196,7 @@ export const apiService = {
     try {
       const response = await api.get('/api/educational/content');
       return response.data;
-    } catch (error) {
+    } catch {
       console.warn('Using fallback educational content');
       return {
         title: 'NASA PACE Satellite & Shark Conservation',
