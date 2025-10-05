@@ -1,0 +1,66 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shark Body -->
+  <path d="M8 24C8 24 12 16 20 16C28 16 36 20 40 24C36 28 28 32 20 32C12 32 8 24 8 24Z" 
+        fill="currentColor" opacity="0.9">
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values="1;1.05;1"
+      dur="3s"
+      repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Shark Tail -->
+  <path d="M4 24L8 20L8 28Z" fill="currentColor" opacity="0.8">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="0 6 24;-5 6 24;5 6 24;0 6 24"
+      dur="2s"
+      repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Dorsal Fin -->
+  <path d="M24 16L28 8L32 16Z" fill="currentColor" opacity="0.7">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="0 28 16;2 28 16;-2 28 16;0 28 16"
+      dur="2.5s"
+      repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Pectoral Fins -->
+  <path d="M16 24L12 28L20 28Z" fill="currentColor" opacity="0.6">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="0 16 26;3 16 26;-3 16 26;0 16 26"
+      dur="2.2s"
+      repeatCount="indefinite"/>
+  </path>
+  
+  <path d="M16 24L12 20L20 20Z" fill="currentColor" opacity="0.6">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="0 16 22;-3 16 22;3 16 22;0 16 22"
+      dur="2.2s"
+      repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Eye -->
+  <circle cx="32" cy="22" r="2" fill="white">
+    <animate
+      attributeName="r"
+      values="2;1.5;2"
+      dur="4s"
+      repeatCount="indefinite"/>
+  </circle>
+  <circle cx="33" cy="21.5" r="1" fill="currentColor"/>
+  
+  <!-- Gills -->
+  <line x1="28" y1="20" x2="26" y2="22" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="30" y1="21" x2="28" y2="23" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="32" y1="22" x2="30" y2="24" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+</svg>
