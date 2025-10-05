@@ -3,7 +3,7 @@ import axios from 'axios';
 // Base API configuration - Updated for Render backend
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
   (process.env.NODE_ENV === 'production' 
-    ? 'https://shark-habitat-api-[YOUR-RENDER-ID].onrender.com'  // Replace with your actual Render URL
+    ? 'https://pace-shark-habitat-predictor.onrender.com'  // Your actual Render URL
     : 'http://localhost:5000');
 
 const api = axios.create({
