@@ -1,15 +1,18 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+// Base API configuration - Updated for Render backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
+  (process.env.NODE_ENV === 'production' 
+    ? 'https://shark-habitat-api-[YOUR-RENDER-ID].onrender.com'  // Replace with your actual Render URL
+    : 'http://localhost:5000');
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 seconds timeout for predictions
+  timeout: 15000, // Increased timeout for Render cold starts
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
 // Add response interceptor for error handling with fallback data
 api.interceptors.response.use(
   (response) => response,
